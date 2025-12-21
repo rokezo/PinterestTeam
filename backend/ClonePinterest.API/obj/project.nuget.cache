@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ndf37bB4dT8=",
+  "dgSpecHash": "Rzo5MgchOWI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
+  "projectFilePath": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dimar\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\dimar\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -40,6 +40,7 @@
     "C:\\Users\\dimar\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.0.3\\microsoft.identitymodel.tokens.7.0.3.nupkg.sha512",
     "C:\\Users\\dimar\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\dimar\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\dimar\\.nuget\\packages\\sixlabors.imagesharp\\3.1.12\\sixlabors.imagesharp.3.1.12.nupkg.sha512",
     "C:\\Users\\dimar\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.6\\sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
     "C:\\Users\\dimar\\.nuget\\packages\\sqlitepclraw.core\\2.1.6\\sqlitepclraw.core.2.1.6.nupkg.sha512",
     "C:\\Users\\dimar\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.6\\sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",

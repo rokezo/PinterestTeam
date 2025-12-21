@@ -760,6 +760,22 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "SixLabors.ImageSharp/3.1.12": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/SixLabors.ImageSharp.props": {}
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
         "type": "package",
         "dependencies": {
@@ -2648,6 +2664,22 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "SixLabors.ImageSharp/3.1.12": {
+      "sha512": "iAg6zifihXEFS/t7fiHhZBGAdCp3FavsF4i2ZIDp0JfeYeDVzvmlbY1CNhhIKimaIzrzSi5M/NBFcWvZT2rB/A==",
+      "type": "package",
+      "path": "sixlabors.imagesharp/3.1.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "build/SixLabors.ImageSharp.props",
+        "lib/net6.0/SixLabors.ImageSharp.dll",
+        "lib/net6.0/SixLabors.ImageSharp.xml",
+        "sixlabors.imagesharp.128.png",
+        "sixlabors.imagesharp.3.1.12.nupkg.sha512",
+        "sixlabors.imagesharp.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
       "sha512": "BmAf6XWt4TqtowmiWe4/5rRot6GerAeklmOPfviOvwLoF5WwgxcJHAxZtySuyW9r9w+HLILnm8VfJFLCUJYW8A==",
       "type": "package",
@@ -3293,6 +3325,7 @@
       "Microsoft.EntityFrameworkCore >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 8.0.0",
+      "SixLabors.ImageSharp >= 3.1.12",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -3302,11 +3335,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
+      "projectUniqueName": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
       "projectName": "ClonePinterest.API",
-      "projectPath": "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
+      "projectPath": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
       "packagesPath": "C:\\Users\\dimar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\obj\\",
+      "outputPath": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dimar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3361,6 +3394,10 @@
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
             "version": "[8.0.0, )"
+          },
+          "SixLabors.ImageSharp": {
+            "target": "Package",
+            "version": "[3.1.12, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

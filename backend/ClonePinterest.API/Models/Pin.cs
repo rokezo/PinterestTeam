@@ -20,6 +20,10 @@ public class Pin
     [MaxLength(500)]
     public string ImageUrl { get; set; } = string.Empty;
 
+    // Розміри зображення для правильного відображення в masonry grid (як в Pinterest)
+    public int? ImageWidth { get; set; }
+    public int? ImageHeight { get; set; }
+
     [MaxLength(500)]
     public string? Link { get; set; }
 

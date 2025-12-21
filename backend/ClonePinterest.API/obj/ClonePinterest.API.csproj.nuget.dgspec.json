@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj": {}
+    "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj": {
+    "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
+        "projectUniqueName": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
         "projectName": "ClonePinterest.API",
-        "projectPath": "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
+        "projectPath": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
         "packagesPath": "C:\\Users\\dimar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dimar\\Desktop\\ClonePinterest\\backend\\ClonePinterest.API\\obj\\",
+        "outputPath": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311\\backend\\ClonePinterest.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dimar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -66,6 +66,10 @@
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.12, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
