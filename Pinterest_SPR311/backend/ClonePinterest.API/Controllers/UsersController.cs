@@ -49,6 +49,27 @@ public class UsersController : ControllerBase
                 return NotFound(new { message = "User not found" });
             }
 
+            // Проверяем доступ к приватному профилю
+            bool isOwnProfile = currentUserId.HasValue && user.Id == currentUserId.Value;
+            bool hasAccess = user.Visibility == "Public" || isOwnProfile;
+            
+            if (!hasAccess)
+            {
+                // Проверяем, подписан ли текущий пользователь на этого пользователя
+                if (currentUserId.HasValue)
+                {
+                    bool isFollowingUser = await _context.Follows
+                        .AnyAsync(f => f.FollowerId == currentUserId.Value && f.FollowingId == id);
+                    hasAccess = isFollowingUser;
+                }
+                
+                if (!hasAccess)
+                {
+                    _logger.LogWarning("Access denied to private profile {UserId} by user {CurrentUserId}", id, currentUserId);
+                    return StatusCode(403, new { message = "No access to this profile" });
+                }
+            }
+
             var followersCount = await _context.Follows.CountAsync(f => f.FollowingId == id);
             var followingCount = await _context.Follows.CountAsync(f => f.FollowerId == id);
             var isFollowing = currentUserId.HasValue && 
@@ -67,15 +88,16 @@ public class UsersController : ControllerBase
                 FollowersCount = followersCount,
                 FollowingCount = followingCount,
                 IsFollowing = isFollowing,
-                IsOwnProfile = currentUserId.HasValue && user.Id == currentUserId.Value
+                IsOwnProfile = isOwnProfile
             };
 
             return Ok(profile);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error getting user profile {UserId}", id);
-            return StatusCode(500, new { message = "Error getting user profile" });
+            _logger.LogError(ex, "Error getting user profile {UserId}. Error: {ErrorMessage}, StackTrace: {StackTrace}", 
+                id, ex.Message, ex.StackTrace);
+            return StatusCode(500, new { message = "Error getting user profile", error = ex.Message });
         }
     }
 

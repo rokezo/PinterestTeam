@@ -10,18 +10,18 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<Pin> Pins { get; set; }
-    public DbSet<Board> Boards { get; set; }
-    public DbSet<BoardPin> BoardPins { get; set; }
-    public DbSet<Comment> Comments { get; set; }
-    public DbSet<Like> Likes { get; set; }
-    public DbSet<Tag> Tags { get; set; }
-    public DbSet<PinTag> PinTags { get; set; }
-    public DbSet<Notification> Notifications { get; set; }
-    public DbSet<Report> Reports { get; set; }
-    public DbSet<Follow> Follows { get; set; }
-    public DbSet<View> Views { get; set; }
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Pin> Pins { get; set; } = null!;
+    public DbSet<Board> Boards { get; set; } = null!;
+    public DbSet<BoardPin> BoardPins { get; set; } = null!;
+    public DbSet<Comment> Comments { get; set; } = null!;
+    public DbSet<Like> Likes { get; set; } = null!;
+    public DbSet<Tag> Tags { get; set; } = null!;
+    public DbSet<PinTag> PinTags { get; set; } = null!;
+    public DbSet<Notification> Notifications { get; set; } = null!;
+    public DbSet<Report> Reports { get; set; } = null!;
+    public DbSet<Follow> Follows { get; set; } = null!;
+    public DbSet<View> Views { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

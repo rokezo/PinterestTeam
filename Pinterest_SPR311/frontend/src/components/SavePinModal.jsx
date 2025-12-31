@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useAuth } from "../context/AuthContext";
 import { boardsService } from "../api/boards";
-import CreateBoardModal from "./CreateBoardModal";
 import "./SavePinModal.css";
 
-const SavePinModal = ({ isOpen, onClose, pinId, onSuccess }) => {
+const SavePinModal = ({ isOpen, onClose, pinId, onSuccess, onCreateBoard }) => {
   const { isAuthenticated } = useAuth();
   const [boards, setBoards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [createBoardModalOpen, setCreateBoardModalOpen] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -62,19 +61,17 @@ const SavePinModal = ({ isOpen, onClose, pinId, onSuccess }) => {
   };
 
   const handleCreateBoard = () => {
-    setCreateBoardModalOpen(true);
-  };
-
-  const handleBoardCreated = () => {
-    setCreateBoardModalOpen(false);
-    loadBoards();
+    // Закрываем SavePinModal и вызываем callback для открытия CreateBoardModal
+    onClose();
+    if (onCreateBoard) {
+      onCreateBoard();
+    }
   };
 
   if (!isOpen) return null;
 
-  return (
-    <>
-      <div className="save-pin-modal-overlay" onClick={onClose}>
+  return createPortal(
+    <div className="save-pin-modal-overlay" onClick={onClose}>
         <div
           className="save-pin-modal"
           onClick={(e) => e.stopPropagation()}
@@ -190,14 +187,8 @@ const SavePinModal = ({ isOpen, onClose, pinId, onSuccess }) => {
             )}
           </div>
         </div>
-      </div>
-
-      <CreateBoardModal
-        isOpen={createBoardModalOpen}
-        onClose={() => setCreateBoardModalOpen(false)}
-        onSuccess={handleBoardCreated}
-      />
-    </>
+      </div>,
+    document.body
   );
 };
 

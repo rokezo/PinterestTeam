@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import SavePinModal from "./SavePinModal";
+import CreateBoardModal from "./CreateBoardModal";
 import "./PinCard.css";
 
 const PinCard = ({ pin, hideSaveButton = false, hideDownloadButton = false }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [createBoardModalOpen, setCreateBoardModalOpen] = useState(false);
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const imageUrl =
@@ -91,6 +93,18 @@ const PinCard = ({ pin, hideSaveButton = false, hideDownloadButton = false }) =>
         pinId={pin.id}
         onSuccess={() => {
           console.log("Pin saved successfully");
+        }}
+        onCreateBoard={() => setCreateBoardModalOpen(true)}
+      />
+      
+      <CreateBoardModal
+        isOpen={createBoardModalOpen}
+        onClose={() => setCreateBoardModalOpen(false)}
+        pinId={pin.id}
+        onSuccess={(createdBoard) => {
+          // Закрываем SavePinModal после успешного создания доски и сохранения пина
+          setSaveModalOpen(false);
+          console.log("Пін успішно збережено в дошку:", createdBoard.name);
         }}
       />
     </div>

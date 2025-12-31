@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
+  z-index: 10001;
 }
 
 .create-board-modal {
@@ -146,5 +146,41 @@
 .create-board-create-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.create-board-saving-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.create-board-saving-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #efefef;
+  border-top: 2px solid #e60023;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.create-board-saving-pin span {
+  font-size: 14px;
+  color: #111;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 

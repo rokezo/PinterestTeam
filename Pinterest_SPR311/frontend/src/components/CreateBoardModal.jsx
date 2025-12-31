@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { useAuth } from "../context/AuthContext";
 import { boardsService } from "../api/boards";
 import "./CreateBoardModal.css";
 
-const CreateBoardModal = ({ isOpen, onClose, onSuccess }) => {
+const CreateBoardModal = ({ isOpen, onClose, onSuccess, pinId, onSavingPin }) => {
   const { isAuthenticated } = useAuth();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [group, setGroup] = useState("");
   const [saving, setSaving] = useState(false);
+  const [savingPin, setSavingPin] = useState(false);
   const [error, setError] = useState("");
 
   if (!isOpen) return null;
@@ -30,7 +32,7 @@ const CreateBoardModal = ({ isOpen, onClose, onSuccess }) => {
     setError("");
 
     try {
-      await boardsService.createBoard({
+      const createdBoard = await boardsService.createBoard({
         name: name.trim(),
         description: description.trim() || null,
         group: group.trim() || null,
@@ -41,10 +43,41 @@ const CreateBoardModal = ({ isOpen, onClose, onSuccess }) => {
       setGroup("");
       setError("");
 
-      if (onSuccess) {
-        onSuccess();
+      // Если нужно сохранить пин в доску, делаем это перед закрытием
+      if (pinId && createdBoard?.id) {
+        setSavingPin(true);
+        if (onSavingPin) {
+          onSavingPin(true);
+        }
+        try {
+          await boardsService.addPinToBoard(createdBoard.id, pinId);
+          // Закрываем модальное окно только после успешного сохранения
+          if (onSuccess) {
+            onSuccess(createdBoard);
+          }
+          onClose();
+        } catch (err) {
+          // Если пин уже сохранен, все равно закрываем
+          if (err.response?.status === 400 && err.response?.data?.message?.includes("already")) {
+            if (onSuccess) {
+              onSuccess(createdBoard);
+            }
+            onClose();
+          } else {
+            setError("Дошку створено, але не вдалося зберегти пін. Спробуйте зберегти вручну.");
+            setSavingPin(false);
+            if (onSavingPin) {
+              onSavingPin(false);
+            }
+          }
+        }
+      } else {
+        // Если не нужно сохранять пин, просто закрываем
+        if (onSuccess) {
+          onSuccess(createdBoard);
+        }
+        onClose();
       }
-      onClose();
     } catch (err) {
       setError(
         err.response?.data?.message || "Не вдалося створити дошку. Спробуйте ще раз."
@@ -55,7 +88,7 @@ const CreateBoardModal = ({ isOpen, onClose, onSuccess }) => {
   };
 
   const handleClose = () => {
-    if (!saving) {
+    if (!saving && !savingPin) {
       setName("");
       setDescription("");
       setGroup("");
@@ -64,7 +97,7 @@ const CreateBoardModal = ({ isOpen, onClose, onSuccess }) => {
     }
   };
 
-  return (
+  return createPortal(
     <div className="create-board-modal-overlay" onClick={handleClose}>
       <div
         className="create-board-modal"
@@ -80,6 +113,12 @@ const CreateBoardModal = ({ isOpen, onClose, onSuccess }) => {
 
         <form onSubmit={handleSubmit} className="create-board-modal-form">
           {error && <div className="create-board-error">{error}</div>}
+          {savingPin && (
+            <div className="create-board-saving-pin">
+              <div className="create-board-saving-spinner"></div>
+              <span>Збереження піна в дошку...</span>
+            </div>
+          )}
 
           <div className="create-board-form-group">
             <label htmlFor="name">Назва *</label>
@@ -123,21 +162,22 @@ const CreateBoardModal = ({ isOpen, onClose, onSuccess }) => {
               type="button"
               className="create-board-cancel-btn"
               onClick={handleClose}
-              disabled={saving}
+              disabled={saving || savingPin}
             >
               Скасувати
             </button>
             <button
               type="submit"
               className="create-board-create-btn"
-              disabled={saving || !name.trim()}
+              disabled={saving || savingPin || !name.trim()}
             >
-              {saving ? "Створення..." : "Створити"}
+              {savingPin ? "Збереження піна..." : saving ? "Створення..." : "Створити"}
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

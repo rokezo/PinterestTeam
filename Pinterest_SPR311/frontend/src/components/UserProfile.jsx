@@ -41,14 +41,33 @@ const UserProfile = () => {
   }, [profile, activeTab]);
 
   const loadProfile = async () => {
+    if (!id) {
+      setError("ID користувача не вказано");
+      setLoading(false);
+      return;
+    }
+    
     try {
       setLoading(true);
       setError(null);
+      console.log("Loading profile for user ID:", id);
       const data = await usersService.getUserProfile(id);
+      console.log("Profile loaded successfully:", data);
       setProfile(data);
     } catch (err) {
       console.error("Error loading profile:", err);
-      setError("Не вдалося завантажити профіль");
+      console.error("Error response:", err.response);
+      console.error("Error status:", err.response?.status);
+      console.error("Error data:", err.response?.data);
+      
+      const errorMessage = err.response?.data?.message || err.message || "Не вдалося завантажити профіль";
+      if (err.response?.status === 404) {
+        setError("Профіль не знайдено");
+      } else if (err.response?.status === 403) {
+        setError("Немає доступу до цього профілю. Профіль може бути приватним.");
+      } else {
+        setError(errorMessage);
+      }
     } finally {
       setLoading(false);
     }

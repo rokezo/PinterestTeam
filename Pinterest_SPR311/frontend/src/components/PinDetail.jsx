@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { pinsService } from "../api/pins";
 import SavePinModal from "./SavePinModal";
+import CreateBoardModal from "./CreateBoardModal";
 import CommentsSection from "./CommentsSection";
 import Navbar from "./Navbar";
 import "./PinDetail.css";
@@ -15,6 +16,7 @@ const PinDetail = () => {
   const [error, setError] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [createBoardModalOpen, setCreateBoardModalOpen] = useState(false);
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -209,6 +211,18 @@ const PinDetail = () => {
         pinId={pin?.id}
         onSuccess={() => {
           console.log("Pin saved successfully");
+        }}
+        onCreateBoard={() => setCreateBoardModalOpen(true)}
+      />
+      
+      <CreateBoardModal
+        isOpen={createBoardModalOpen}
+        onClose={() => setCreateBoardModalOpen(false)}
+        pinId={pin?.id}
+        onSuccess={(createdBoard) => {
+          // Закрываем SavePinModal после успешного создания доски и сохранения пина
+          setSaveModalOpen(false);
+          console.log("Пін успішно збережено в дошку:", createdBoard.name);
         }}
       />
     </>

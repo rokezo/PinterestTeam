@@ -450,6 +450,13 @@ public class PinsController : ControllerBase
                 return NotFound(new { message = "Pin not found" });
             }
 
+            // Перевіряємо чи Owner завантажений
+            if (pin.Owner == null)
+            {
+                _logger.LogWarning("Pin {PinId} has null Owner", id);
+                return NotFound(new { message = "Pin owner not found" });
+            }
+
             // Перевіряємо доступ (публічний або власник)
             if (pin.Visibility != "Public" && (!currentUserId.HasValue || pin.OwnerId != currentUserId.Value))
             {
@@ -464,35 +471,45 @@ public class PinsController : ControllerBase
 
             // Перевіряємо чи лайкнув поточний користувач
             bool isLiked = false;
-            if (currentUserId.HasValue)
+            if (currentUserId.HasValue && pin.Likes != null)
             {
                 isLiked = pin.Likes.Any(l => l.UserId == currentUserId.Value);
 
                 // Записуємо перегляд
-                var existingView = await _context.Views
-                    .FirstOrDefaultAsync(v => v.UserId == currentUserId.Value && v.PinId == id);
-
-                if (existingView == null)
+                try
                 {
-                    var view = new View
+                    var existingView = await _context.Views
+                        .FirstOrDefaultAsync(v => v.UserId == currentUserId.Value && v.PinId == id);
+
+                    if (existingView == null)
                     {
-                        UserId = currentUserId.Value,
-                        PinId = id,
-                        ViewedAt = DateTime.UtcNow
-                    };
-                    _context.Views.Add(view);
-                    await _context.SaveChangesAsync();
+                        var view = new View
+                        {
+                            UserId = currentUserId.Value,
+                            PinId = id,
+                            ViewedAt = DateTime.UtcNow
+                        };
+                        _context.Views.Add(view);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to record view for pin {PinId} by user {UserId}", id, currentUserId.Value);
+                    // Продолжаем выполнение, даже если не удалось записать просмотр
                 }
             }
 
+            // Фільтруємо коментарі з null User та створюємо DTO
             var comments = pin.Comments
+                .Where(c => c.User != null)
                 .OrderBy(c => c.CreatedAt)
                 .Select(c => new CommentDto
                 {
                     Id = c.Id,
                     PinId = c.PinId,
                     UserId = c.UserId,
-                    Username = c.User.Username,
+                    Username = c.User!.Username,
                     UserAvatarUrl = c.User.AvatarUrl,
                     Text = c.Text,
                     CreatedAt = c.CreatedAt,
@@ -515,8 +532,8 @@ public class PinsController : ControllerBase
                 OwnerBio = pin.Owner.Bio,
                 Visibility = pin.Visibility,
                 CreatedAt = pin.CreatedAt,
-                LikesCount = pin.Likes.Count,
-                CommentsCount = pin.Comments.Count,
+                LikesCount = pin.Likes?.Count ?? 0,
+                CommentsCount = comments.Count,
                 IsLiked = isLiked,
                 Comments = comments
             };
@@ -525,8 +542,9 @@ public class PinsController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Помилка при отриманні піна {PinId}", id);
-            return StatusCode(500, new { message = "Error getting pin" });
+            _logger.LogError(ex, "Помилка при отриманні піна {PinId}. Error: {ErrorMessage}, StackTrace: {StackTrace}", 
+                id, ex.Message, ex.StackTrace);
+            return StatusCode(500, new { message = "Error getting pin", error = ex.Message });
         }
     }
 
