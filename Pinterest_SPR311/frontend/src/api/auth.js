@@ -78,6 +78,21 @@ export const authService = {
     });
     return response.data;
   },
+
+  getSettings: async () => {
+    const response = await api.get("/auth/settings");
+    return response.data;
+  },
+
+  updateRecommendations: async (settings) => {
+    const response = await api.put("/auth/settings/recommendations", settings);
+    return response.data;
+  },
+
+  updatePrivacy: async (settings) => {
+    const response = await api.put("/auth/settings/privacy", settings);
+    return response.data;
+  },
 };
 
 export default api;

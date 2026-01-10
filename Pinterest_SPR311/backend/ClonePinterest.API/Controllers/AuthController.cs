@@ -284,6 +284,144 @@ public class AuthController : ControllerBase
             return StatusCode(500, new { message = "Error updating profile", error = ex.Message });
         }
     }
+
+    [HttpGet("settings")]
+    [Authorize]
+    public async Task<IActionResult> GetSettings()
+    {
+        try
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return Unauthorized(new { message = "User not authorized" });
+            }
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            var settings = new
+            {
+                RecommendationsEnabled = user.RecommendationsEnabled,
+                PersonalizedAds = user.PersonalizedAds,
+                Visibility = user.Visibility,
+                Searchable = user.Searchable,
+                ShowEmail = user.ShowEmail
+            };
+
+            return Ok(settings);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting user settings");
+            return StatusCode(500, new { message = "Error getting settings", error = ex.Message });
+        }
+    }
+
+    [HttpPut("settings/recommendations")]
+    [Authorize]
+    public async Task<IActionResult> UpdateRecommendations([FromBody] DTOs.Settings.UpdateRecommendationsDto dto)
+    {
+        try
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return Unauthorized(new { message = "User not authorized" });
+            }
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            if (dto.RecommendationsEnabled.HasValue)
+            {
+                user.RecommendationsEnabled = dto.RecommendationsEnabled.Value;
+            }
+
+            if (dto.PersonalizedAds.HasValue)
+            {
+                user.PersonalizedAds = dto.PersonalizedAds.Value;
+            }
+
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("Recommendations settings updated for user {UserId}", userId);
+
+            return Ok(new
+            {
+                RecommendationsEnabled = user.RecommendationsEnabled,
+                PersonalizedAds = user.PersonalizedAds,
+                message = "Recommendations settings updated successfully"
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating recommendations settings");
+            return StatusCode(500, new { message = "Error updating recommendations settings", error = ex.Message });
+        }
+    }
+
+    [HttpPut("settings/privacy")]
+    [Authorize]
+    public async Task<IActionResult> UpdatePrivacy([FromBody] DTOs.Settings.UpdatePrivacyDto dto)
+    {
+        try
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return Unauthorized(new { message = "User not authorized" });
+            }
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            if (!string.IsNullOrEmpty(dto.Visibility))
+            {
+                if (dto.Visibility != "Public" && dto.Visibility != "Private")
+                {
+                    return BadRequest(new { message = "Visibility must be 'Public' or 'Private'" });
+                }
+                user.Visibility = dto.Visibility;
+            }
+
+            if (dto.Searchable.HasValue)
+            {
+                user.Searchable = dto.Searchable.Value;
+            }
+
+            if (dto.ShowEmail.HasValue)
+            {
+                user.ShowEmail = dto.ShowEmail.Value;
+            }
+
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation("Privacy settings updated for user {UserId}", userId);
+
+            return Ok(new
+            {
+                Visibility = user.Visibility,
+                Searchable = user.Searchable,
+                ShowEmail = user.ShowEmail,
+                message = "Privacy settings updated successfully"
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating privacy settings");
+            return StatusCode(500, new { message = "Error updating privacy settings", error = ex.Message });
+        }
+    }
 }
 
 

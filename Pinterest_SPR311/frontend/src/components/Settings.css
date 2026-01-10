@@ -226,7 +226,288 @@
   }
 }
 
+/* Settings menu layout */
+.settings-main-container {
+  flex: 1;
+  display: flex;
+  margin-left: 240px;
+  margin-top: 60px;
+  background: white;
+  min-height: calc(100vh - 60px);
+}
+
+.settings-menu-container {
+  width: 320px;
+  border-right: 1px solid #e9e9e9;
+  background: white;
+  overflow-y: auto;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+}
+
+.settings-menu-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid #e9e9e9;
+  position: relative;
+}
+
+.settings-close-button {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+  transition: background-color 0.2s;
+}
+
+.settings-close-button:hover {
+  background-color: #efefef;
+}
+
+.settings-menu-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+}
+
+.settings-menu-section {
+  padding: 16px 0;
+}
+
+.settings-section-header {
+  font-size: 11px;
+  font-weight: 600;
+  color: #767676;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 20px 8px;
+  margin-bottom: 4px;
+}
+
+.settings-menu-item {
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+  color: #111;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.settings-menu-item:hover {
+  background-color: #efefef;
+}
+
+.settings-menu-item.active {
+  background-color: #efefef;
+  font-weight: 600;
+}
+
+.settings-menu-item.external {
+  padding-right: 40px;
+}
+
+.settings-menu-item.resource-link {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.settings-menu-item.resource-link:hover {
+  text-decoration: underline;
+}
+
+.settings-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.settings-menu-label {
+  flex: 1;
+}
+
+.external-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+}
+
+.settings-content-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  background: #f5f5f5;
+}
+
+.settings-container {
+  flex: 1;
+  padding: 40px 20px;
+  background: #f5f5f5;
+  overflow-y: auto;
+}
+
+/* Additional form styles */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #e60023;
+}
+
+.settings-select {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.settings-select:focus {
+  outline: none;
+  border-color: #111;
+}
+
+.section-description {
+  font-size: 14px;
+  color: #767676;
+  margin-bottom: 24px;
+}
+
+.connected-account-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border: 1px solid #e9e9e9;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.account-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.account-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f5f5f5;
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.account-details strong {
+  font-size: 16px;
+  color: #111;
+}
+
+.account-details span {
+  font-size: 14px;
+  color: #767676;
+}
+
+.account-button {
+  padding: 8px 16px;
+  border: 1px solid #e9e9e9;
+  border-radius: 20px;
+  background: white;
+  color: #111;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.account-button:hover {
+  background: #efefef;
+}
+
+.account-button.connect {
+  background: #e60023;
+  color: white;
+  border-color: #e60023;
+}
+
+.account-button.connect:hover {
+  background: #ad081b;
+  border-color: #ad081b;
+}
+
+@media (max-width: 1024px) {
+  .settings-main-container {
+    margin-left: 80px;
+  }
+
+  .settings-menu-container {
+    width: 280px;
+  }
+
+  .settings-container {
+    margin-left: 0;
+  }
+}
+
 @media (max-width: 768px) {
+  .settings-main-container {
+    margin-left: 0;
+    flex-direction: column;
+  }
+
+  .settings-menu-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    border-right: none;
+    border-bottom: 1px solid #e9e9e9;
+  }
+
   .settings-container {
     margin-left: 0;
     padding: 20px;

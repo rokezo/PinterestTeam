@@ -46,6 +46,14 @@ public class User
     [MaxLength(50)]
     public string? Language { get; set; }
 
+    // Налаштування рекомендацій
+    public bool RecommendationsEnabled { get; set; } = true;
+    public bool PersonalizedAds { get; set; } = true;
+
+    // Налаштування приватності
+    public bool Searchable { get; set; } = true;
+    public bool ShowEmail { get; set; } = false;
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation properties
