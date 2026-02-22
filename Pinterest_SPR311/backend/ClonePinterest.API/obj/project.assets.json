@@ -3371,16 +3371,16 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dimar\\.nuget\\packages\\": {}
+    "C:\\Users\\dimar\\AppData\\Local\\Temp\\cursor-sandbox-cache\\5385e10c6deb8b2d083529d4e3ec4ae8\\nuget": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311New\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
+      "projectUniqueName": "C:\\Users\\dimar\\source\\repos\\PinterestTeam\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
       "projectName": "ClonePinterest.API",
-      "projectPath": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311New\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
-      "packagesPath": "C:\\Users\\dimar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dimar\\source\\repos\\Pinterest_SPR311New\\Pinterest_SPR311\\backend\\ClonePinterest.API\\obj\\",
+      "projectPath": "C:\\Users\\dimar\\source\\repos\\PinterestTeam\\Pinterest_SPR311\\backend\\ClonePinterest.API\\ClonePinterest.API.csproj",
+      "packagesPath": "C:\\Users\\dimar\\AppData\\Local\\Temp\\cursor-sandbox-cache\\5385e10c6deb8b2d083529d4e3ec4ae8\\nuget",
+      "outputPath": "C:\\Users\\dimar\\source\\repos\\PinterestTeam\\Pinterest_SPR311\\backend\\ClonePinterest.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dimar\\AppData\\Roaming\\NuGet\\NuGet.Config",

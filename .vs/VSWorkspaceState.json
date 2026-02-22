@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Pinterest_SPR311",
+    "\\Pinterest_SPR311\\backend",
+    "\\Pinterest_SPR311\\backend\\ClonePinterest.API"
   ],
-  "SelectedNode": "\\C:\\Users\\dimar\\Source\\Repos\\Pinterest_SPR311New",
+  "SelectedNode": "\\Pinterest_SPR311\\backend\\ClonePinterest.API\\add_parent_comment_id.py",
   "PreviewInSolutionExplorer": false
 }

@@ -123,11 +123,11 @@ const UserProfile = () => {
 
   if (loading) {
     return (
-      <div className="home-container">
+      <div className="home-container inspira-home">
         <Navbar />
         <div className="home-layout">
           <Sidebar />
-          <main className="home-main">
+          <main className="home-main inspira-main">
             <div className="user-profile-loading">
               <div className="loading-spinner"></div>
             </div>
@@ -139,11 +139,11 @@ const UserProfile = () => {
 
   if (error || !profile) {
     return (
-      <div className="home-container">
+      <div className="home-container inspira-home">
         <Navbar />
         <div className="home-layout">
           <Sidebar />
-          <main className="home-main">
+          <main className="home-main inspira-main">
             <div className="user-profile-error">{error || "Профіль не знайдено"}</div>
           </main>
         </div>
@@ -152,11 +152,11 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="home-container">
+    <div className="home-container inspira-home">
       <Navbar />
       <div className="home-layout">
         <Sidebar />
-        <main className="home-main">
+        <main className="home-main inspira-main">
           <div className="user-profile">
             <div className="user-profile-header">
               <div className="user-profile-avatar">

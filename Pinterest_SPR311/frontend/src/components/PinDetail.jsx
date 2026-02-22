@@ -6,6 +6,7 @@ import SavePinModal from "./SavePinModal";
 import CreateBoardModal from "./CreateBoardModal";
 import CommentsSection from "./CommentsSection";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 import "./PinDetail.css";
 
 const PinDetail = () => {
@@ -48,8 +49,11 @@ const PinDetail = () => {
     return (
       <>
         <Navbar />
-        <div className="pin-detail-loading">
-          <div className="loading-spinner"></div>
+        <div className="home-layout">
+          <Sidebar />
+          <div className="pin-detail-loading inspira-main-bg">
+            <div className="loading-spinner"></div>
+          </div>
         </div>
       </>
     );
@@ -59,9 +63,12 @@ const PinDetail = () => {
     return (
       <>
         <Navbar />
-        <div className="pin-detail-error">
-          <p>{error || "Пін не знайдено"}</p>
-          <button onClick={() => navigate("/")}>Повернутися</button>
+        <div className="home-layout">
+          <Sidebar />
+          <div className="pin-detail-error inspira-main-bg">
+            <p>{error || "Пін не знайдено"}</p>
+            <button onClick={() => navigate("/")}>Повернутися</button>
+          </div>
         </div>
       </>
     );
@@ -95,7 +102,9 @@ const PinDetail = () => {
   return (
     <>
       <Navbar />
-      <div className="pin-detail-container">
+      <div className="home-layout">
+        <Sidebar />
+      <div className="pin-detail-container inspira-pin-detail">
         <div className="pin-detail-content">
           <div className="pin-detail-image-wrapper">
             <img
@@ -203,6 +212,7 @@ const PinDetail = () => {
             />
           </div>
         </div>
+      </div>
       </div>
 
       <SavePinModal

@@ -1,4 +1,4 @@
-using ClonePinterest.API.Data;
+image.pngusing ClonePinterest.API.Data;
 using ClonePinterest.API.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,7 +12,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Настройка Data Protection для работы в development
 builder.Services.AddDataProtection()
     .SetApplicationName("ClonePinterest")
     .PersistKeysToFileSystem(new System.IO.DirectoryInfo(Path.Combine(builder.Environment.ContentRootPath, "DataProtection-Keys")));
@@ -33,7 +32,6 @@ var authBuilder = builder.Services.AddAuthentication(options =>
 {
     if (builder.Environment.IsDevelopment())
     {
-        // В development используем Unspecified дляі работы с cross-site redirect
         options.Cookie.SameSite = SameSiteMode.Unspecified;
         options.Cookie.SecurePolicy = CookieSecurePolicy.None;
     }

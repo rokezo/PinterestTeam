@@ -85,7 +85,7 @@
   width: 40px;
   height: 40px;
   border: 3px solid #efefef;
-  border-top: 3px solid #e60023;
+  border-top: 3px solid #0066cc;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -155,7 +155,7 @@
 }
 
 .save-pin-board-item:hover:not(:disabled) {
-  border-color: #e60023;
+  border-color: #0066cc;
   background-color: #fff5f5;
 }
 

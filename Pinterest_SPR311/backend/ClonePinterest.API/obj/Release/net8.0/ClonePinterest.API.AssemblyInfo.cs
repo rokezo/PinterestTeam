@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClonePinterest.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36c9074da78dd166a3d36cf06c168674bc57fcf8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+22c1eeef04119e4f588cb5c2c7c3c8751fab2212")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClonePinterest.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClonePinterest.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

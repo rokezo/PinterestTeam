@@ -23,6 +23,19 @@
   background-color: #ad081b;
 }
 
+.inspira-main-bg {
+  background: #e3f2fd;
+  flex: 1;
+  margin-left: 60px;
+  min-height: calc(100vh - 60px);
+}
+
+.inspira-pin-detail {
+  background: #e3f2fd;
+  flex: 1;
+  margin-left: 60px;
+}
+
 .pin-detail-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -124,7 +137,7 @@
 
 .pin-detail-save-btn {
   padding: 16px 24px;
-  background-color: #e60023;
+  background-color: #0066cc;
   color: white;
   border: none;
   border-radius: 24px;
@@ -135,7 +148,7 @@
 }
 
 .pin-detail-save-btn:hover {
-  background-color: #ad081b;
+  background-color: #0052a3;
 }
 
 .pin-detail-download-btn {
