@@ -21,6 +21,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Notification> Notifications { get; set; } = null!;
     public DbSet<Report> Reports { get; set; } = null!;
     public DbSet<Follow> Follows { get; set; } = null!;
+    public DbSet<Message> Messages { get; set; } = null!;
     public DbSet<View> Views { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -61,6 +62,13 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Follow>()
             .HasIndex(f => new { f.FollowerId, f.FollowingId })
             .IsUnique();
+
+        // Індекси для швидкого пошуку діалогів
+        modelBuilder.Entity<Message>()
+            .HasIndex(m => new { m.SenderId, m.RecipientId, m.CreatedAt });
+
+        modelBuilder.Entity<Message>()
+            .HasIndex(m => new { m.RecipientId, m.IsRead });
     }
 }
 

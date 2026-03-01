@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Pinterest_SPR311",
-    "\\Pinterest_SPR311\\backend",
-    "\\Pinterest_SPR311\\backend\\ClonePinterest.API"
+    "\\Pinterest_SPR311\\backend\\ClonePinterest.API",
+    "\\Pinterest_SPR311\\frontend"
   ],
-  "SelectedNode": "\\Pinterest_SPR311\\backend\\ClonePinterest.API\\add_parent_comment_id.py",
+  "SelectedNode": "\\Pinterest_SPR311\\frontend",
   "PreviewInSolutionExplorer": false
 }

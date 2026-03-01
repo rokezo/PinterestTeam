@@ -114,6 +114,11 @@ public class AuthController : ControllerBase
             return Unauthorized(new { message = "Invalid email or password" });
         }
 
+        if (user.IsDeactivated)
+        {
+            return Unauthorized(new { message = "Account is deactivated. Contact support to restore." });
+        }
+
         // Генерація токену
         var token = _jwtService.GenerateToken(user);
 
@@ -421,6 +426,105 @@ public class AuthController : ControllerBase
             _logger.LogError(ex, "Error updating privacy settings");
             return StatusCode(500, new { message = "Error updating privacy settings", error = ex.Message });
         }
+    }
+
+    [HttpPost("change-password")]
+    [Authorize]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+        {
+            return Unauthorized(new { message = "User not authorized" });
+        }
+
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return NotFound(new { message = "User not found" });
+        }
+
+        if (!_passwordService.VerifyPassword(dto.CurrentPassword, user.PasswordHash))
+        {
+            return BadRequest(new { message = "Current password is incorrect" });
+        }
+
+        user.PasswordHash = _passwordService.HashPassword(dto.NewPassword);
+        await _context.SaveChangesAsync();
+        _logger.LogInformation("Password changed for user {UserId}", userId);
+        return Ok(new { message = "Password changed successfully" });
+    }
+
+    [HttpPut("account-type")]
+    [Authorize]
+    public async Task<IActionResult> ChangeAccountType([FromBody] ChangeAccountTypeDto dto)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+        {
+            return Unauthorized(new { message = "User not authorized" });
+        }
+
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return NotFound(new { message = "User not found" });
+        }
+
+        user.Role = dto.AccountType;
+        await _context.SaveChangesAsync();
+        _logger.LogInformation("Account type changed to {Role} for user {UserId}", dto.AccountType, userId);
+        return Ok(new { message = "Account type updated", role = user.Role });
+    }
+
+    [HttpPost("deactivate")]
+    [Authorize]
+    public async Task<IActionResult> DeactivateAccount()
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+        {
+            return Unauthorized(new { message = "User not authorized" });
+        }
+
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return NotFound(new { message = "User not found" });
+        }
+
+        user.IsDeactivated = true;
+        user.Visibility = "Private";
+        await _context.SaveChangesAsync();
+        _logger.LogInformation("Account deactivated for user {UserId}", userId);
+        return Ok(new { message = "Account deactivated" });
+    }
+
+    [HttpPost("delete-account")]
+    [Authorize]
+    public async Task<IActionResult> DeleteAccount([FromBody] DeleteAccountDto dto)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+        {
+            return Unauthorized(new { message = "User not authorized" });
+        }
+
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return NotFound(new { message = "User not found" });
+        }
+
+        if (!_passwordService.VerifyPassword(dto.Password, user.PasswordHash))
+        {
+            return BadRequest(new { message = "Invalid password" });
+        }
+
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+        _logger.LogInformation("Account deleted for user {UserId}", userId);
+        return Ok(new { message = "Account deleted" });
     }
 }
 

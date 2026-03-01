@@ -56,6 +56,9 @@ public class User
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    /// <summary>Якщо true — вхід заблоковано, профіль приховано.</summary>
+    public bool IsDeactivated { get; set; } = false;
+
     // Navigation properties
     public virtual ICollection<Pin> Pins { get; set; } = new List<Pin>();
     public virtual ICollection<Board> Boards { get; set; } = new List<Board>();

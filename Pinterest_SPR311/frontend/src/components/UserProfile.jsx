@@ -120,6 +120,11 @@ const UserProfile = () => {
     }
   };
 
+  const handleMessage = () => {
+    if (!isAuthenticated || !profile || profile.isOwnProfile) return;
+    navigate(`/?chatWith=${profile.id}`);
+  };
+
 
   if (loading) {
     return (
@@ -208,6 +213,12 @@ const UserProfile = () => {
                       onClick={handleFollow}
                     >
                       {following ? "Відписатися" : "Підписатися"}
+                    </button>
+                    <button
+                      className="user-profile-message-btn"
+                      onClick={handleMessage}
+                    >
+                      Написати
                     </button>
                   </div>
                 )}

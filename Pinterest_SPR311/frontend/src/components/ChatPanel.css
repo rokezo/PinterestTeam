@@ -10,7 +10,7 @@
   top: 60px;
   left: 60px;
   bottom: 0;
-  width: 380px;
+  width: 640px;
   background: #e3f2fd;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
   z-index: 1000;
@@ -30,6 +30,79 @@
 
 .inspira-chat-panel {
   background: #e3f2fd;
+}
+
+.chat-dialogs-list {
+  width: 240px;
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  background: #f5f9ff;
+}
+
+.chat-dialogs-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.chat-dialogs-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chat-dialogs-loading,
+.chat-dialogs-empty {
+  padding: 16px;
+  font-size: 14px;
+  color: #777;
+}
+
+.chat-dialogs-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.chat-dialog-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.chat-dialog-item:hover {
+  background: #f0f0f0;
+}
+
+.chat-dialog-item.active {
+  background: #f0f0f0;
+}
+
+.chat-dialog-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.chat-avatar {
+  flex: 0 0 40px;
+}
+
+.chat-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-panel-header {
@@ -127,6 +200,39 @@
   flex: 1;
   overflow-y: auto;
   padding: 16px;
+}
+
+.chat-messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-message {
+  max-width: 75%;
+  padding: 8px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chat-message-incoming {
+  align-self: flex-start;
+  background: white;
+}
+
+.chat-message-outgoing {
+  align-self: flex-end;
+  background: #0066cc;
+  color: white;
+}
+
+.chat-message-time {
+  font-size: 11px;
+  opacity: 0.7;
+  text-align: right;
 }
 
 .chat-placeholder {
@@ -260,5 +366,9 @@
   .chat-panel {
     left: 0;
     width: 100%;
+  }
+
+  .chat-dialogs-list {
+    display: none;
   }
 }

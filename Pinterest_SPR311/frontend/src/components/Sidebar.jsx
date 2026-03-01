@@ -11,7 +11,7 @@ import "./Sidebar.css";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [createHovered, setCreateHovered] = useState(false);
   const [createPosition, setCreatePosition] = useState({ top: 0, left: 0 });
   const createTimeoutRef = useRef(null);
@@ -54,7 +54,17 @@ const Sidebar = () => {
     setSearchParams({});
     navigate("/");
   };
-  const handleChatClick = () => setChatPanelOpen(!chatPanelOpen);
+  const handleChatClick = () => {
+    setChatPanelOpen(!chatPanelOpen);
+  };
+
+  // відкривати чат з конкретним користувачем через ?chatWith=ID
+  useEffect(() => {
+    const chatWith = searchParams.get("chatWith");
+    if (chatWith && isAuthenticated) {
+      setChatPanelOpen(true);
+    }
+  }, [searchParams, isAuthenticated]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -189,8 +199,23 @@ const Sidebar = () => {
       <CreatePinModal isOpen={createPinModalOpen} onClose={() => setCreatePinModalOpen(false)} onSuccess={() => navigate("/")} />
       <CreateBoardModal isOpen={createBoardModalOpen} onClose={() => setCreateBoardModalOpen(false)} onSuccess={() => {}} />
       <CreateCollageModal isOpen={createCollageModalOpen} onClose={() => setCreateCollageModalOpen(false)} />
-      <NotificationsModal isOpen={notificationsModalOpen} onClose={() => setNotificationsModalOpen(false)} onNotificationClick={() => notificationsService.getUnreadCount().then(d => setUnreadCount(d.count || 0))} />
-      {chatPanelOpen && <ChatPanel onClose={() => setChatPanelOpen(false)} />}
+      <NotificationsModal
+        isOpen={notificationsModalOpen}
+        onClose={() => setNotificationsModalOpen(false)}
+        onNotificationClick={() => notificationsService.getUnreadCount().then(d => setUnreadCount(d.count || 0))}
+      />
+      {chatPanelOpen && (
+        <ChatPanel
+          onClose={() => {
+            setChatPanelOpen(false);
+            // очищуємо параметр, щоб не відкривало чат знову при навігації
+            const params = new URLSearchParams(searchParams);
+            params.delete("chatWith");
+            setSearchParams(params);
+          }}
+          initialUserId={searchParams.get("chatWith") ? parseInt(searchParams.get("chatWith"), 10) : null}
+        />
+      )}
     </aside>
   );
 };
