@@ -61,4 +61,6 @@ backend/wwwroot/images/
 .env
 .env.local
 .env.*.local
+bin/
+obj/
 
