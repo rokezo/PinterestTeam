@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
@@ -5,18 +6,39 @@ import PinGrid from './PinGrid'
 import './Home.css'
 
 const Home = () => {
-  const [searchParams] = useSearchParams()
-  const hasSearch = !!searchParams.get('q')?.trim()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '')
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      setSearchParams({ q: searchQuery.trim() })
+    } else {
+      setSearchParams({})
+    }
+  }
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value)
+  }
 
   return (
-    <div className="home-container inspira-home">
+    <div className="home-container">
       <Navbar />
       <div className="home-layout">
         <Sidebar />
-        <main className="home-main inspira-main">
-          {!hasSearch && (
-            <h1 className="inspira-headline">Прекрасне чекає на вас</h1>
-          )}
+        <main className="home-main">
+          <div className="home-search-wrapper">
+            <form className="home-search-bar" onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Пошук........"
+                className="home-search-input"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+            </form>
+          </div>
           <PinGrid />
         </main>
       </div>

@@ -120,19 +120,14 @@ const UserProfile = () => {
     }
   };
 
-  const handleMessage = () => {
-    if (!isAuthenticated || !profile || profile.isOwnProfile) return;
-    navigate(`/?chatWith=${profile.id}`);
-  };
-
 
   if (loading) {
     return (
-      <div className="home-container inspira-home">
+      <div className="home-container">
         <Navbar />
         <div className="home-layout">
           <Sidebar />
-          <main className="home-main inspira-main">
+          <main className="home-main">
             <div className="user-profile-loading">
               <div className="loading-spinner"></div>
             </div>
@@ -144,11 +139,11 @@ const UserProfile = () => {
 
   if (error || !profile) {
     return (
-      <div className="home-container inspira-home">
+      <div className="home-container">
         <Navbar />
         <div className="home-layout">
           <Sidebar />
-          <main className="home-main inspira-main">
+          <main className="home-main">
             <div className="user-profile-error">{error || "Профіль не знайдено"}</div>
           </main>
         </div>
@@ -157,11 +152,11 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="home-container inspira-home">
+    <div className="home-container">
       <Navbar />
       <div className="home-layout">
         <Sidebar />
-        <main className="home-main inspira-main">
+        <main className="home-main">
           <div className="user-profile">
             <div className="user-profile-header">
               <div className="user-profile-avatar">
@@ -213,12 +208,6 @@ const UserProfile = () => {
                       onClick={handleFollow}
                     >
                       {following ? "Відписатися" : "Підписатися"}
-                    </button>
-                    <button
-                      className="user-profile-message-btn"
-                      onClick={handleMessage}
-                    >
-                      Написати
                     </button>
                   </div>
                 )}

@@ -6,6 +6,10 @@ import Settings from './components/Settings'
 import BoardsPage from './components/BoardsPage'
 import BoardDetail from './components/BoardDetail'
 import UserProfile from './components/UserProfile'
+import AboutPage from './components/AboutPage'
+import BusinessPage from './components/BusinessPage'
+import CreateLanding from './components/CreateLanding'
+import NewsPage from './components/NewsPage'
 import './App.css'
 
 const App = () => {
@@ -14,6 +18,10 @@ const App = () => {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/business" element={<BusinessPage />} />
+          <Route path="/create" element={<CreateLanding />} />
+          <Route path="/news" element={<NewsPage />} />
           <Route path="/pin/:id" element={<PinDetail />} />
           <Route path="/settings/*" element={<Settings />} />
           <Route path="/boards" element={<BoardsPage />} />

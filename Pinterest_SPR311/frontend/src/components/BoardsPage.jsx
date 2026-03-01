@@ -73,11 +73,11 @@ const BoardsPage = () => {
 
   if (loading) {
     return (
-      <div className="home-container inspira-home">
+      <div className="home-container">
         <Navbar />
         <div className="home-layout">
           <Sidebar />
-          <main className="home-main inspira-main">
+          <main className="home-main">
             <div className="boards-loading">
               <div className="loading-spinner"></div>
             </div>
@@ -89,11 +89,11 @@ const BoardsPage = () => {
 
   if (error) {
     return (
-      <div className="home-container inspira-home">
+      <div className="home-container">
         <Navbar />
         <div className="home-layout">
           <Sidebar />
-          <main className="home-main inspira-main">
+          <main className="home-main">
             <div className="boards-error">{error}</div>
           </main>
         </div>
@@ -289,11 +289,11 @@ const BoardsPage = () => {
   };
 
   return (
-    <div className="home-container inspira-home">
-        <Navbar />
-        <div className="home-layout">
-          <Sidebar />
-        <main className="home-main inspira-main">
+    <div className="home-container">
+      <Navbar />
+      <div className="home-layout">
+        <Sidebar />
+        <main className="home-main">
           <div className="boards-page">
             {profile && (
               <div className="boards-profile-header">

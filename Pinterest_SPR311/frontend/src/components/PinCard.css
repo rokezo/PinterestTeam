@@ -83,7 +83,7 @@
 
 .pin-save-btn {
   padding: 12px 24px;
-  background: #0066cc;
+  background: #e60023;
   color: white;
   border: none;
   border-radius: 24px;
@@ -95,7 +95,7 @@
 }
 
 .pin-save-btn:hover {
-  background: #0052a3;
+  background: #ad081b;
 }
 
 .pin-download-btn {

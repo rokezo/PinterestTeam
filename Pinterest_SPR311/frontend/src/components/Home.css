@@ -1,46 +1,59 @@
 .home-container {
   min-height: 100vh;
-  background: white;
-}
-
-.inspira-home {
-  background: #e3f2fd;
+  background: #9fc7d5;
 }
 
 .home-layout {
   display: flex;
-  margin-top: 60px;
+  margin-top: 72px;
 }
 
 .home-main {
   flex: 1;
-  margin-left: 60px;
-  padding: 20px;
-  min-height: calc(100vh - 60px);
+  margin-left: 80px;
+  padding: 32px 40px 40px;
+  min-height: calc(100vh - 72px);
 }
 
-.inspira-main {
-  background: #e3f2fd;
+.home-search-wrapper {
+  max-width: 1024px;
+  margin: 0 auto 24px;
 }
 
-.inspira-headline {
-  font-size: 32px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 24px;
-  text-align: center;
+.home-search-bar {
+  width: 100%;
+}
+
+.home-search-input {
+  width: 100%;
+  padding: 18px 32px;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  background: #ffffff;
+  font-size: 18px;
+}
+
+@media (max-width: 1200px) {
+  .home-main {
+    padding: 24px 24px;
+  }
 }
 
 @media (max-width: 1024px) {
   .home-main {
-    margin-left: 60px;
+    margin-left: 72px;
   }
 }
 
 @media (max-width: 768px) {
+  .home-layout {
+    margin-top: 60px;
+  }
+
   .home-main {
     margin-left: 0;
-    padding: 10px;
+    padding: 12px;
   }
 }
 

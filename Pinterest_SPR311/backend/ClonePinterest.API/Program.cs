@@ -128,16 +128,6 @@ using (var scope = app.Services.CreateScope())
     {
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         db.Database.Migrate();
-
-        // Додаємо стовпець IsDeactivated для існуючої бази, якщо його ще немає
-        try
-        {
-            db.Database.ExecuteSqlRaw("ALTER TABLE \"Users\" ADD COLUMN \"IsDeactivated\" INTEGER NOT NULL DEFAULT 0");
-        }
-        catch
-        {
-            // Ігноруємо помилку, якщо стовпець уже існує
-        }
     }
     catch (Exception ex)
     {

@@ -93,31 +93,6 @@ export const authService = {
     const response = await api.put("/auth/settings/privacy", settings);
     return response.data;
   },
-
-  changePassword: async (currentPassword, newPassword) => {
-    const response = await api.post("/auth/change-password", {
-      currentPassword,
-      newPassword,
-    });
-    return response.data;
-  },
-
-  changeAccountType: async (accountType) => {
-    const response = await api.put("/auth/account-type", {
-      accountType: accountType === "corporate" ? "Corporate" : "User",
-    });
-    return response.data;
-  },
-
-  deactivateAccount: async () => {
-    const response = await api.post("/auth/deactivate");
-    return response.data;
-  },
-
-  deleteAccount: async (password) => {
-    const response = await api.post("/auth/delete-account", { password });
-    return response.data;
-  },
 };
 
 export default api;

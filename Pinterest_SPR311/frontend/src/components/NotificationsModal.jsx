@@ -14,38 +14,6 @@ const NotificationsModal = ({ isOpen, onClose, onNotificationClick }) => {
   const [hasMore, setHasMore] = useState(true);
   const [activeTab, setActiveTab] = useState("notifications");
 
-  const loadSettings = () => {
-    try {
-      const saved = localStorage.getItem("notificationSettings");
-      if (saved) {
-        return JSON.parse(saved);
-      }
-    } catch {
-      // ignore
-    }
-    return null;
-  };
-
-  const isNotificationEnabled = (notification, settings) => {
-    if (!settings) return true;
-    const type = notification.type;
-    if (!type) return settings.system !== false;
-    switch (type) {
-      case "Like":
-        return settings.likes !== false;
-      case "Comment":
-        return settings.comments !== false;
-      case "Follow":
-        return settings.follows !== false;
-      case "NewPin":
-        return settings.newPins !== false;
-      case "PinSaved":
-        return settings.saves !== false;
-      default:
-        return settings.system !== false;
-    }
-  };
-
   useEffect(() => {
     if (isOpen) {
       loadNotifications(1);
@@ -56,17 +24,12 @@ const NotificationsModal = ({ isOpen, onClose, onNotificationClick }) => {
     try {
       setLoading(true);
       const data = await notificationsService.getNotifications(pageNum, 20);
-      const settings = loadSettings();
-      const allNotifications = data.notifications || [];
-      const filtered = allNotifications.filter((n) =>
-        isNotificationEnabled(n, settings)
-      );
-
+      console.log("Notifications data:", data);
       if (pageNum === 1) {
-        setNotifications(filtered);
+        setNotifications(data.notifications || []);
         setRecommendedPins(data.recommendedPins || []);
       } else {
-        setNotifications((prev) => [...prev, ...filtered]);
+        setNotifications((prev) => [...prev, ...(data.notifications || [])]);
       }
       setHasMore(pageNum < (data.totalPages || 1));
       setPage(pageNum);
